@@ -169,17 +169,21 @@ class Siswa extends BaseController
     {
         $builder = $this->db->table('data_kandidat');
         $jml_kandidat = $builder->countAllResults();
-        $status_pilih = $this->db->table('data_siswa')
+        $sudah = $this->db->table('data_siswa')
                                  ->select('status_memilih')
                                  ->selectCount('status_memilih')
-                                 ->groupBy('status_memilih')->get()->getResultArray();
+                                 ->groupBy('status_memilih')->where('status_memilih', 'sudah')->get()->getResultArray();
+        $belum = $this->db->table('data_siswa')
+                                 ->select('status_memilih')
+                                 ->selectCount('status_memilih')
+                                 ->groupBy('status_memilih')->where('status_memilih', 'belum')->get()->getResultArray();
         $data = [
             'tittle'         => 'Perolehan Suara',
             'jml_kandidat' => $jml_kandidat,
             'nama_kandidat' => $this->dataKandidat->getNama(),
             'banyak_suara' => $this->dataKandidat->getSuara(),
-            'sudah' => $status_pilih[0]['status_memilih'],
-            'belum' => $status_pilih[1]['status_memilih'],
+            'sudah' => $sudah[0]['status_memilih'],
+            'belum' => $belum[0]['status_memilih'],
         ];
         return view('siswa/perolehanSuara', $data);
     }
