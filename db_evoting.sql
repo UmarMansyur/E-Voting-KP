@@ -1,11 +1,11 @@
 -- phpMyAdmin SQL Dump
--- version 5.1.1
+-- version 5.1.3
 -- https://www.phpmyadmin.net/
 --
--- Host: 127.0.0.1
--- Generation Time: Mar 08, 2022 at 06:09 AM
--- Server version: 10.4.21-MariaDB
--- PHP Version: 7.3.31
+-- Host: mysql:3306
+-- Waktu pembuatan: 15 Bulan Mei 2022 pada 00.15
+-- Versi server: 8.0.29
+-- Versi PHP: 8.0.15
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 START TRANSACTION;
@@ -18,28 +18,28 @@ SET time_zone = "+00:00";
 /*!40101 SET NAMES utf8mb4 */;
 
 --
--- Database: `evoting`
+-- Database: `db_evoting`
 --
 
 -- --------------------------------------------------------
 
 --
--- Table structure for table `data_kandidat`
+-- Struktur dari tabel `data_kandidat`
 --
 
 CREATE TABLE `data_kandidat` (
-  `id_kandidat` int(11) NOT NULL,
-  `no_urut` int(11) NOT NULL,
+  `id_kandidat` int NOT NULL,
+  `no_urut` int NOT NULL,
   `nama_kandidat` varchar(255) NOT NULL,
   `visi_misi` varchar(500) NOT NULL,
   `priode` varchar(100) NOT NULL,
   `gambar_kandidat` varchar(255) NOT NULL,
   `created_at` datetime DEFAULT NULL,
   `updated_at` datetime DEFAULT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 
 --
--- Dumping data for table `data_kandidat`
+-- Dumping data untuk tabel `data_kandidat`
 --
 
 INSERT INTO `data_kandidat` (`id_kandidat`, `no_urut`, `nama_kandidat`, `visi_misi`, `priode`, `gambar_kandidat`, `created_at`, `updated_at`) VALUES
@@ -49,12 +49,12 @@ INSERT INTO `data_kandidat` (`id_kandidat`, `no_urut`, `nama_kandidat`, `visi_mi
 -- --------------------------------------------------------
 
 --
--- Table structure for table `data_siswa`
+-- Struktur dari tabel `data_siswa`
 --
 
 CREATE TABLE `data_siswa` (
-  `id_siswa` int(11) NOT NULL,
-  `siswa_userid` int(11) NOT NULL,
+  `id_siswa` int NOT NULL,
+  `siswa_userid` int NOT NULL,
   `nis_siswa` varchar(50) NOT NULL,
   `nama_siswa` varchar(255) NOT NULL,
   `kelas` varchar(50) NOT NULL,
@@ -64,10 +64,10 @@ CREATE TABLE `data_siswa` (
   `status_aktif` varchar(50) NOT NULL,
   `created_at` datetime DEFAULT NULL,
   `updated_at` datetime DEFAULT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 
 --
--- Dumping data for table `data_siswa`
+-- Dumping data untuk tabel `data_siswa`
 --
 
 INSERT INTO `data_siswa` (`id_siswa`, `siswa_userid`, `nis_siswa`, `nama_siswa`, `kelas`, `jenis_kelamin`, `status_memilih`, `tahun`, `status_aktif`, `created_at`, `updated_at`) VALUES
@@ -142,42 +142,42 @@ INSERT INTO `data_siswa` (`id_siswa`, `siswa_userid`, `nis_siswa`, `nama_siswa`,
 -- --------------------------------------------------------
 
 --
--- Table structure for table `data_suara`
+-- Struktur dari tabel `data_suara`
 --
 
 CREATE TABLE `data_suara` (
-  `id_suara` int(11) NOT NULL,
-  `id_pemilih` int(11) NOT NULL,
-  `no_urut` int(11) NOT NULL,
+  `id_suara` int NOT NULL,
+  `id_pemilih` int NOT NULL,
+  `no_urut` int NOT NULL,
   `created_at` datetime DEFAULT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 
 --
--- Dumping data for table `data_suara`
+-- Dumping data untuk tabel `data_suara`
 --
 
 INSERT INTO `data_suara` (`id_suara`, `id_pemilih`, `no_urut`, `created_at`) VALUES
 (6, 98, 1, '2022-03-04 19:37:52'),
 (7, 99, 1, '2022-03-04 22:24:11'),
 (8, 104, 1, '2022-03-04 22:27:54'),
-(9, 102, 1, '2022-03-04 22:38:01'),
-(10, 100, 1, '2022-03-05 04:01:14'),
+(9, 102, 2, '2022-03-04 22:38:01'),
+(10, 100, 2, '2022-03-05 04:01:14'),
 (11, 106, 2, '2022-03-05 04:07:19'),
 (12, 101, 1, '2022-03-07 05:19:24');
 
 -- --------------------------------------------------------
 
 --
--- Table structure for table `kelas`
+-- Struktur dari tabel `kelas`
 --
 
 CREATE TABLE `kelas` (
-  `id_kelas` int(11) NOT NULL,
+  `id_kelas` int NOT NULL,
   `nama_kelas` varchar(100) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 
 --
--- Dumping data for table `kelas`
+-- Dumping data untuk tabel `kelas`
 --
 
 INSERT INTO `kelas` (`id_kelas`, `nama_kelas`) VALUES
@@ -221,21 +221,44 @@ INSERT INTO `kelas` (`id_kelas`, `nama_kelas`) VALUES
 -- --------------------------------------------------------
 
 --
--- Table structure for table `users`
+-- Struktur dari tabel `pengumuman`
+--
+
+CREATE TABLE `pengumuman` (
+  `id_pengumuman` int NOT NULL,
+  `judul_p` varchar(100) DEFAULT NULL,
+  `deskripsi_p` varchar(100) DEFAULT NULL,
+  `tgl_mulai` datetime DEFAULT NULL,
+  `tgl_tutup` datetime DEFAULT NULL,
+  `created_at` datetime DEFAULT NULL,
+  `update_at` datetime DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+
+--
+-- Dumping data untuk tabel `pengumuman`
+--
+
+INSERT INTO `pengumuman` (`id_pengumuman`, `judul_p`, `deskripsi_p`, `tgl_mulai`, `tgl_tutup`, `created_at`, `update_at`) VALUES
+(1, 'Kita bukan ya ges ya', '<p>tak usa wat rowat kalak tai santai pokok mareh&nbsp;</p>', '2022-05-15 05:55:00', '2022-05-23 08:56:00', '2022-05-15 05:55:49', NULL);
+
+-- --------------------------------------------------------
+
+--
+-- Struktur dari tabel `users`
 --
 
 CREATE TABLE `users` (
-  `id` int(11) NOT NULL,
+  `id` int NOT NULL,
   `username` varchar(100) NOT NULL,
   `password` varchar(100) NOT NULL,
   `status_vote` varchar(100) NOT NULL,
   `level` varchar(50) NOT NULL,
   `created_at` datetime DEFAULT NULL,
   `updated_at` datetime DEFAULT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 
 --
--- Dumping data for table `users`
+-- Dumping data untuk tabel `users`
 --
 
 INSERT INTO `users` (`id`, `username`, `password`, `status_vote`, `level`, `created_at`, `updated_at`) VALUES
@@ -313,76 +336,88 @@ INSERT INTO `users` (`id`, `username`, `password`, `status_vote`, `level`, `crea
 --
 
 --
--- Indexes for table `data_kandidat`
+-- Indeks untuk tabel `data_kandidat`
 --
 ALTER TABLE `data_kandidat`
   ADD PRIMARY KEY (`id_kandidat`);
 
 --
--- Indexes for table `data_siswa`
+-- Indeks untuk tabel `data_siswa`
 --
 ALTER TABLE `data_siswa`
   ADD PRIMARY KEY (`id_siswa`),
   ADD KEY `siswa_userid` (`siswa_userid`);
 
 --
--- Indexes for table `data_suara`
+-- Indeks untuk tabel `data_suara`
 --
 ALTER TABLE `data_suara`
   ADD PRIMARY KEY (`id_suara`);
 
 --
--- Indexes for table `kelas`
+-- Indeks untuk tabel `kelas`
 --
 ALTER TABLE `kelas`
   ADD PRIMARY KEY (`id_kelas`);
 
 --
--- Indexes for table `users`
+-- Indeks untuk tabel `pengumuman`
+--
+ALTER TABLE `pengumuman`
+  ADD PRIMARY KEY (`id_pengumuman`);
+
+--
+-- Indeks untuk tabel `users`
 --
 ALTER TABLE `users`
   ADD PRIMARY KEY (`id`);
 
 --
--- AUTO_INCREMENT for dumped tables
+-- AUTO_INCREMENT untuk tabel yang dibuang
 --
 
 --
--- AUTO_INCREMENT for table `data_kandidat`
+-- AUTO_INCREMENT untuk tabel `data_kandidat`
 --
 ALTER TABLE `data_kandidat`
-  MODIFY `id_kandidat` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
+  MODIFY `id_kandidat` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
 
 --
--- AUTO_INCREMENT for table `data_siswa`
+-- AUTO_INCREMENT untuk tabel `data_siswa`
 --
 ALTER TABLE `data_siswa`
-  MODIFY `id_siswa` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=165;
+  MODIFY `id_siswa` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=165;
 
 --
--- AUTO_INCREMENT for table `data_suara`
+-- AUTO_INCREMENT untuk tabel `data_suara`
 --
 ALTER TABLE `data_suara`
-  MODIFY `id_suara` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=13;
+  MODIFY `id_suara` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=13;
 
 --
--- AUTO_INCREMENT for table `kelas`
+-- AUTO_INCREMENT untuk tabel `kelas`
 --
 ALTER TABLE `kelas`
-  MODIFY `id_kelas` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=42;
+  MODIFY `id_kelas` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=42;
 
 --
--- AUTO_INCREMENT for table `users`
+-- AUTO_INCREMENT untuk tabel `pengumuman`
+--
+ALTER TABLE `pengumuman`
+  MODIFY `id_pengumuman` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+
+--
+-- AUTO_INCREMENT untuk tabel `users`
 --
 ALTER TABLE `users`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=169;
+  MODIFY `id` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=169;
 
 --
--- Constraints for dumped tables
+-- Ketidakleluasaan untuk tabel pelimpahan (Dumped Tables)
 --
 
 --
--- Constraints for table `data_siswa`
+-- Ketidakleluasaan untuk tabel `data_siswa`
 --
 ALTER TABLE `data_siswa`
   ADD CONSTRAINT `data_siswa_ibfk_1` FOREIGN KEY (`siswa_userid`) REFERENCES `users` (`id`) ON DELETE CASCADE ON UPDATE CASCADE;
