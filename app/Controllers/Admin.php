@@ -676,12 +676,23 @@ class Admin extends BaseController
         $builder = $this->db->table('data_kandidat');
         $jml_kandidat = $builder->countAllResults();
         // dd($this->dataKandidat->getSuara());
+        $sudah = $this->db->table('data_siswa')
+                                 ->select('status_memilih')
+                                 ->selectCount('status_memilih')
+                                 ->groupBy('status_memilih')->where('status_memilih', 'sudah')->get()->getResultArray();
+        $belum = $this->db->table('data_siswa')
+                                 ->select('status_memilih')
+                                 ->selectCount('status_memilih')
+                                 ->groupBy('status_memilih')->where('status_memilih', 'belum')->get()->getResultArray();
         $data = [
             'tittle' => 'Data Suara',
             'jml_kandidat' => $jml_kandidat,
             'nama_kandidat' => $this->dataKandidat->getNama(),
-            'banyak_suara' => $this->dataKandidat->getSuara()
+            'banyak_suara' => $this->dataKandidat->getSuara(),
+            'sudah' => $sudah[0]['status_memilih'],
+            'belum' => $belum[0]['status_memilih'],
         ];
+        
         // dd($data['nama_kandidat']);
         return view('admin/data_suara', $data);
     }
@@ -694,7 +705,7 @@ class Admin extends BaseController
         $query = $builder->get()->getResultArray();
 
         $data = [
-            'tittle' => 'pengumuman',
+            'tittle' => 'Manajemen Setting',
             'pengumuman' => $query
         ];
 
@@ -734,6 +745,24 @@ class Admin extends BaseController
 
         session()->setFlashdata('pesan_hijau', 'Pengumuman berhasil di tambahkan');
         return redirect()->to(site_url('admin/pengumuman'));
+    }
+    public function update_pengumuman() {
+        $data = [
+            'judul_p' => $this->request->getVar('judul'),
+            'deskripsi_p' => $this->request->getVar('deskripsi'),
+            'tgl_mulai' => $this->request->getVar('start') . ' ' . $this->request->getVar('jam_mulai'),
+            'tgl_tutup' => $this->request->getVar('end') . ' ' . $this->request->getVar('jam_tutup'),
+            'created_at' => Time::now()
+        ];
+        $builder = $this->db->table('pengumuman')->where('id_pengumuman', $this->request->getVar('id_pengumuman'));
+        $news = $this->db->table('pengumuman')->update($data);
+        return redirect()->back();
+    }
+    public function delete_pengumuman($id) {
+        $builder = $this->db->table('pengumuman');
+        $builder->delete(['id_pengumuman' => $id]);
+        return redirect()->back();
+
     }
     public function getDataKandidat() 
     {

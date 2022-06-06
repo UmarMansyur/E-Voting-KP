@@ -80,8 +80,13 @@
                     </div>
                 </div>
 
-                <div class="container-fluid">
-                    <canvas id="myChart"></canvas>
+                <div class="row justify-content-center mt-5">
+                    <div class="col-6 mr-5 shadow">
+                        <canvas id="myChart"></canvas>
+                    </div>
+                    <div class="col-3 ml-5 shadow text-center ">
+                        <canvas id="chartPemilihan"></canvas>
+                    </div>
                 </div>
 
 
@@ -172,6 +177,33 @@
                 scales: {
                     y: {
                         beginAtZero: true
+                    }
+                }
+            }
+        });
+        const chartP = document.getElementById('chartPemilihan').getContext('2d');
+        const chartPemilihan = new Chart(chartP, {
+            type: 'doughnut',
+            data: {
+                labels: ['Sudah Memilih', 'Belum Memilih'],
+                datasets: [{
+                    label: 'Jumlah Perhitungan Suara',
+                    data: [<?= $sudah ?>, <?= $belum ?>],
+                    backgroundColor: [
+                        'rgb(255, 99, 132)',
+                        'rgb(54, 162, 235)',
+                        'rgb(255, 205, 86)'
+                    ],
+
+                    hoverOffset: 4
+                }]
+            },
+            options: {
+                responsive: true,
+                maintainAspectRatio: true,
+                legend: {
+                    labels: {
+                        boxWidth: 15
                     }
                 }
             }

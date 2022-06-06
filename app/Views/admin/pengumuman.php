@@ -57,9 +57,58 @@
                                 <td><?= $k['tgl_mulai']; ?></td>
                                 <td><?= $k['tgl_tutup']; ?></td>
                                 <td>
-                                    <a href="#" id="EditKelas" class="btn btn-warning"><i class="fas fa-pen"></i></a>
-                                    <form action="<?= site_url('admin/hapus_pengumuman'); ?>/<?= $k['id_pengumuman']; ?>" method="POST" class="d-inline">
+                                    <a href="#editNews" data-toggle="modal" id="EditKelas" class="btn btn-warning" data-id="<?= $k['id_pengumuman']; ?>" data-judul="<?= $k['judul_p']; ?>" data-deskripsi="<?= $k['deskripsi_p']; ?>" data-start="<?= $k['tgl_mulai']; ?>" data-end="<?= $k['tgl_tutup']; ?>"><i class="fas fa-pen"></i></a>
+                                    <div class="modal fade show" id="editNews" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-modal="true">
+                                        <div class="modal-dialog" role="document">
+                                            <div class="modal-content">
+                                                <div class="modal-header">
+                                                    <h5 class="modal-title" id="exampleModalLabel">Edit Pengumuman</h5>
+                                                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                                        <span aria-hidden="true">×</span>
+                                                    </button>
+                                                </div>
+                                                <form action="http://localhost:8080/admin/update_pengumuman" method="POST">
+                                                    <div class="modal-body modal-edit">
+                                                        <div class="form-group">
+                                                            <input type="hidden" name="id_pengumuman" id="id_pengumuman" value="1">
+                                                            <label for="judul">Judul</label>
+                                                            <input type="text" name="judul" id="judul" class="form-control" onkeyup="this.value = this.value.toUpperCase()">
+                                                            <label for="deskripsi">Deskripsi</label>
+                                                            <input type="text" name="deskripsi" id="deskripsi" class="form-control" onkeyup="this.value = this.value.toUpperCase()">
+                                                            <label for="start">Tanggal Mulai</label>
+                                                            <input type="text" name="start" id="start" class="form-control" onkeyup="this.value = this.value.toUpperCase()">
+                                                            <label for="end">Tanggal Tutup</label>
+                                                            <input type="text" name="end" id="end" class="form-control" onkeyup="this.value = this.value.toUpperCase()">
+                                                        </div>
+                                                    </div>
+                                                    <div class="modal-footer">
+                                                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Batal</button>
+                                                        <button type="submit" class="btn btn-primary">Simpan</button>
+                                                    </div>
+                                                </form>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <script>
+                                        document.getElementById('EditKelas').onclick = function() {
+                                            const element = document.getElementById('EditKelas');
+                                            const id = element.dataset.id;
+                                            const judul = element.dataset.judul;
+                                            const deskripsi = element.dataset.deskripsi;
+                                            const start = element.dataset.start;
+                                            const end = element.dataset.end;
+                                            console.log(deskripsi)
+                                            document.getElementById('id_pengumuman').value = id;
+                                            document.getElementById('judul').value = judul;
+                                            document.getElementById('deskripsi').value = deskripsi;
+                                            document.getElementById('start').value = start;
+                                            document.getElementById('end').value = end;
+                                        }
+                                    </script>
+                                    <form action="<?= site_url('admin/delete_pengumuman'); ?>/<?= $k['id_pengumuman']; ?>" method="POST" class="d-inline">
                                         <?= csrf_field(); ?>
+                                        <input type="hidden" name="id_news" id="id_news">
                                         <input type="hidden" name="_method" value="DELETE">
                                         <button type="submit" class="btn btn-danger" onclick="return confirm('jika salah satu data di hapus. maka akan mempengaruhi isi pilih kelas pada saat tambah data siswa maupun edit')"><i class="fas fa-trash-alt"></i></button>
                                     </form>

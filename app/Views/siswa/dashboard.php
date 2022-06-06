@@ -2,7 +2,7 @@
 
 <?= $this->section('page-siswa'); ?>
 
-<div class="container">
+<div class="container-fluid">
     <?php if (session()->getFlashdata('pesan_hijau')) : ?>
         <div class="alert alert-success alert-dismissible fade show mt-4" role="alert">
             <strong>Berhasil!</strong> <?= session()->getFlashdata('pesan_hijau'); ?>
@@ -46,8 +46,8 @@
                 </div>
             </div>
             <div class="col-md-8 mt-3">
-                <div class="card mb-3 py-4 shadow">
-                    <div class="card-body">
+                <div class="card mb-5 py-4 shadow">
+                    <div class="card-body mb-4">
                         <div class="row">
                             <div class="col-sm-3">
                                 <h6 class="mb-0">Nama Lengkap</h6>
@@ -91,5 +91,12 @@
 
     </div>
 </div>
-
+<div class="container-fluid">
+    <div class="card mt-4 border-left-primary">
+        <div class="card-body">
+            <h5>Selamat datang di Evoting <strong>SMAN 1 PADEMAWU</strong></h5>
+            <p>e-voting berasal dari kata electronic voting yang mengacu pada penggunaan teknologi informasi pada pelaksanaan pemungutan suara. <a target="_blank" href="https://id.wikipedia.org/wiki/Pemungutan_suara_elektronik">wikipedia</a></p>
+        </div>
+    </div>
+</div>
 <?= $this->endSection(); ?>

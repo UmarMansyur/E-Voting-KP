@@ -10,7 +10,7 @@ class Home extends BaseController
             return redirect()->to(site_url('auth/login_siswa'));
         }
         if (session()->get('level') == 2) {
-            return redirect()->to(site_url('siswa/home'));
+            return redirect()->to(site_url('siswa/dashboard'));
         }
 
         $data = [

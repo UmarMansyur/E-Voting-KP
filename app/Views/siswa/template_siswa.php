@@ -37,9 +37,6 @@
                     <a class="nav-link text-light" href="<?= site_url('siswa/home'); ?>">Home <span class="sr-only">(current)</span></a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link text-light" href="<?= site_url('siswa/dashboard'); ?>">Dashboard</a>
-                </li>
-                <li class="nav-item">
                     <a class="nav-link text-light" href="<?= site_url('siswa/voting'); ?>">Voting</a>
                 </li>
                 <li class="nav-item">

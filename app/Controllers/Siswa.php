@@ -17,18 +17,24 @@ class Siswa extends BaseController
 
     public function home()
     {
-        if (session()->get('log') != true) {
-            return redirect()->to(base_url('/'));
-        }
-
         if (session()->get('level') <> 2) {
             return redirect()->to(base_url('/'));
         }
+
+        $builder = $this->db->table('data_siswa');
+        $builder->select('*');
+        $builder->join('users', 'users.id = data_siswa.siswa_userid');
+        $builder->where('siswa_userid', session()->get('id'));
+        $query = $builder->get()->getRow();
+
+        // dd($query);
+
         $data = [
-            'tittle' => 'HOME | SISWA'
+            'tittle' => 'Dashboard',
+            'siswa' => $query
         ];
 
-        return view('siswa/index', $data);
+        return view('siswa/dashboard', $data);
     }
 
     public function dashboard()

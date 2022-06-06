@@ -57,8 +57,8 @@
 
     <li class="nav-item">
         <a class="nav-link" href="<?= site_url('admin/pengumuman'); ?>">
-            <i class="fas fa-school"></i>
-            <span>Tambah Pengumuman</span></a>
+            <i class="fas fa-cog"></i>
+            <span>Manajemen Setting</span></a>
     </li>
 
     <!-- Divider -->
